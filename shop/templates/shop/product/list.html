@@ -1,0 +1,184 @@
+{% extends "shop/base.html" %}
+   {% load static %}
+   {% block title %}
+     {% if category %}{{ category.name }}{% else %}Products{% endif %}
+   {% endblock %}
+   {% block content %}
+
+
+	<!-- Start Product Area -->
+    <div class="product-area section">
+            <div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title">
+							<h2>Products</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="product-info">
+							<div class="nav-main">
+								<!-- Tab Nav -->
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+                             <li class="nav-item">
+                                     <a {% if not category %}class="nav-link active"{% endif %}  data-toggle="tab" role="tab" href="#all">All
+                                     </a>
+                                   </li>
+                                    {% for c in categories %}
+                                   <li class="nav-item">
+                                     <a {% if category.slug == c.slug %}class="nav-link active"{% endif %}  data-toggle="tab" href="#{{ c.name }}" role="tab"href="">{{ c.name }}
+                                     </a>
+                                   </li>
+                                 {% endfor %}
+
+								</ul>
+								<!--/ End Tab Nav -->
+							</div>
+							<div class="tab-content" id="myTabContent">
+                            		<div class="tab-pane fade show active" id="all" role="tabpanel">
+									<div class="tab-single">
+										<div class="row">
+     {%  for product in products %}
+
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+
+													<div class="product-img">
+														<a href="product-details.html">
+															<a href="{{ product.get_absolute_url }}">
+             <img src="{% if product.image %}{{ product.image.url }}
+{%else %}{% static "img/no_image.png" %}{% endif %}">
+           </a>
+
+														</a>
+														<div class="button-head">
+															<div class="product-action">
+                                                                {% csrf_token %}
+{#																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>#}
+
+
+															</div>
+															<div class="product-action-2">
+                                                                     {% csrf_token %}
+                                                                <a  class="ti" product_id="{{ product.id }}" url="{% url 'cart:ajax_cart_add' %}" href="#">
+                                                                    Add to cart
+                                                                    <i class="ti-heart"></i>
+                                                                </a>
+
+															</div>
+														</div>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">{{ product.name }}</a></h3>
+														<div class="product-price">
+															<span>${{ product.price }}</span>
+														</div>
+													</div>
+
+												</div>
+											</div>
+           {%  endfor %}
+
+										</div>
+									</div>
+								</div>
+								<!-- Start Single Tab -->
+{% for c in categories %}
+								<div class="tab-pane " id="{{ c.name }}" role="tabpanel">
+									<div class="tab-single">
+										<div class="row">
+     {%  for product in c.products.all %}
+
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+
+													<div class="product-img">
+														<a href="product-details.html">
+															<a href="{{ product.get_absolute_url }}">
+             <img src="{% if product.image %}{{ product.image.url }}
+{%else %}{% static "img/no_image.png" %}{% endif %}">
+           </a>
+
+														</a>
+															<div class="button-head">
+															<div class="product-action">
+                                                                {% csrf_token %}
+{#																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>#}
+
+
+															</div>
+															<div class="product-action-2">
+                                                                     {% csrf_token %}
+                                                                <a  class="ti" product_id="{{ product.id }}" url="{% url 'cart:ajax_cart_add' %}" href="#">
+                                                                    Add to cart
+                                                                    <i class="ti-heart"></i>
+                                                                </a>
+
+															</div>
+														</div>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">{{ product.name }}</a></h3>
+														<div class="product-price">
+															<span>$29.00</span>
+														</div>
+													</div>
+
+												</div>
+											</div>
+           {%  endfor %}
+
+										</div>
+									</div>
+								</div>
+								{%  endfor %}
+                                <!--/ End Single Tab -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+    </div>
+	<!-- End Product Area -->
+       {% block script %}
+           <script>
+           
+    //Follow a user
+     $('.ti').unbind("click").click(function() {
+
+        var btn = $(this);
+        product_id = btn.attr("product_id");
+        addUrl=btn.attr("url");
+        console.log(product_id);
+        $.ajax({
+            type: 'POST',
+            url: addUrl,
+            data: {
+                'product_id': product_id,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: addToCart,
+            dataType: 'html'
+        });
+        function addToCart(data, jqXHR) {
+            let myResult = JSON.parse(data);
+            // let count =myResult['count'];
+
+            let fol=myResult['added'];
+                        if(fol){
+                            btn.attr("disabled", true);
+                            btn.html(" ").html("").html(`added`);
+                        }
+                        else{
+
+                        }
+        }
+    });
+
+           </script>
+           {% endblock %}
+
+   {% endblock %}

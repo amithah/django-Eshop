@@ -1,0 +1,29 @@
+
+{% extends "shop/base.html" %}
+ {% load static %}
+   {% block title %}
+     Checkout
+   {% endblock %}
+   {% block content %}
+       	<!-- Start Checkout -->
+		<section class="shop checkout section">
+			<div class="container">
+
+				<div class="row">
+
+					<div class="col-lg-8 col-12">
+
+     <h1>Thank you</h1>
+     <p>Your order has been successfully completed. Your order number is
+     <strong>{{ order.id }}</strong>.</p>
+
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+		<!--/ End Checkout -->
+
+   {% endblock %}
+
