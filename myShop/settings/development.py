@@ -1,4 +1,4 @@
-from myShop.settings.common import *
+from .common import *
 
 DEBUG = True
 SECRET_KEY =os.getenv("SECRET_KEY")
