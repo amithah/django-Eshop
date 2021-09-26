@@ -71,9 +71,9 @@
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">{{ product.name }}</a></h3>
+														<h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
 														<div class="product-price">
-															<span>${{ product.price }}</span>
+															<span>AED {{ product.price }}</span>
 														</div>
 													</div>
 
@@ -120,9 +120,9 @@
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">{{ product.name }}</a></h3>
+														<h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
 														<div class="product-price">
-															<span>$29.00</span>
+															<span>AED {{ product.price }}</span>
 														</div>
 													</div>
 
@@ -146,7 +146,7 @@
        {% block script %}
            <script>
            
-    //Follow a user
+    //Add to cart
      $('.ti').unbind("click").click(function() {
 
         var btn = $(this);
@@ -171,6 +171,7 @@
                         if(fol){
                             btn.attr("disabled", true);
                             btn.html(" ").html("").html(`added`);
+                            location.reload();
                         }
                         else{
 

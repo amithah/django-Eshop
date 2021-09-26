@@ -42,4 +42,4 @@ def addtocart_ajax(request):
                  quantity= 1
                  )
         added = True
-        return JsonResponse({'following': added})
+        return JsonResponse({'added': added})

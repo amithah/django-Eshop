@@ -88,17 +88,17 @@ method="post">
 										</form>
 									</div>
 									<div class="checkbox">
-										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10$)</label>
+										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10AED )</label>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li>Cart Subtotal<span>${{ cart.get_total_price }}</span></li>
+										<li>Cart Subtotal<span>AED {{ cart.get_total_price }}</span></li>
 										<li>Shipping<span>Free</span></li>
-{#										<li>You Save<span>$20.00</span></li>#}
-										<li class="last">You Pay<span>${{ cart.get_total_price }}</span></li>
+{#										<li>You Save<span>AED 20.00</span></li>#}
+										<li class="last">You Pay<span>AED {{ cart.get_total_price }}</span></li>
 									</ul>
 									<div class="button5">
 										<a href="{% url 'orders:order_create' %}" class="btn">Checkout</a>
