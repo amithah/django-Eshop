@@ -43,9 +43,9 @@ return; }
              'input.invalid': {'color': 'red'},
              'input.valid': {'color': 'green'}
 }, fields: {
-             number: {selector: '#card-number'},
-             cvv: {selector: '#cvv'},
-             expirationDate: {selector: '#expiration-date'}
+             number: {selector: '#card-number',placeholder: '4111 1111 1111 1111'},
+             cvv: {selector: '#cvv',placeholder: '123'},
+             expirationDate: {selector: '#expiration-date',placeholder: '12/28'}
            }
          }, function (hostedFieldsErr, hostedFieldsInstance) {
            if (hostedFieldsErr) {
