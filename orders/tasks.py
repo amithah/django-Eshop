@@ -8,23 +8,7 @@ from django.template.loader import render_to_string
 
 @task
 def order_created(order_id):
-    # order = Order.objects.get(id=order_id)
-    # subject = f'Order nr. {order.id}'
-    # to = order.email
-    # message = render_to_string('', {
-    #     'user': order.first_name,
-    #     'order_id': order.id,
-    #
-    # })
-    # welcome_email = EmailMessage(
-    #     subject=subject,
-    #     body=message,
-    #     from_email='message.me.aamy@gmail.com',  # change from email here
-    #     to=[to],  # to email list here
-    #
-    # )
-    # welcome_email.content_subtype = "html"
-    # welcome_email.send()
+
     order = Order.objects.get(id=order_id)
     subject = f'Order nr. {order.id}'
     message = f'Dear {order.first_name},\n\n' \
